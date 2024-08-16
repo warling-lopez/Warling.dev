@@ -7,9 +7,9 @@ function Imput( props) {
     }
     
   return (
-    <div style={{display:'flex',width:350,}}>
+    <form method='post' style={{display:'flex',width:350,}}>
         <input type={Inp.type}  className={Inp.cos} placeholder={Inp.phr} required/>
-    </div>
+    </form>
   )
 }
 

@@ -10,9 +10,9 @@ function Button(props) {
         type:props.type,
     }
   return (
-    <div style={{width:350,right:0, position:'relative'}}>
+    <div style={{margin:'10px 30px'}}>
         <Link to={btn.lk}> 
-            <button type={btn.type} className={btn.cos}>
+            <button type={btn.type}  className={btn.cos}>
                 {btn.txt}
             </button>
         </Link>

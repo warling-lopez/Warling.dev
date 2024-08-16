@@ -1,0 +1,28 @@
+.navegacion{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.textInit{
+    position: relative;
+    width: auto;
+    width: 75%;
+    left: 0;
+    margin: 200px 50px -50px 50px;
+}
+.justify{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width:100%;
+    justify-content: center;
+}
+.justify2{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width:80%;
+    justify-content: center;
+}

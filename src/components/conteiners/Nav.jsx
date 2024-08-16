@@ -7,7 +7,7 @@ function Nav(props) {
     cos_lk:props.cos_lk,
 }
   return (
-    <div>
+    <div >      
       <ul className={list.cos}>
         <Link to={'/'} className={list.cos_lk}>
           <li>Home</li>
