@@ -1,0 +1,114 @@
+body{
+    font-family: "Barlow", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    background-color: rgb(15, 21, 43);
+}
+:root{
+    --fondoAzul:rgb(15, 21, 43);
+    --resartar:rgb(0, 132, 255);
+    --AzulVerso:rgb(0, 247, 255);
+}
+.prueva_gap{
+    display: grid;
+    columns:auto;
+    flex-wrap: wrap
+}
+.logo-img{
+    filter: drop-shadow(0 0 2px #ffffff);
+    width: 150px;
+    height: 70px;
+}
+.btn-azul{
+    position: relative;
+    top:0;
+    width: 120px;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    font-size: large;
+    color:rgb(255, 255, 255);
+    font-family: "Barlow", sans-serif;
+    font-weight: 700;
+    background:linear-gradient(to right top, rgb(0, 132, 255),var(--resartar),var(--AzulVerso));
+    transition: 2s ;
+}
+.btn-azul:hover {
+    background:linear-gradient(to left bottom, var(--resartar),var(--resartar),var(--AzulVerso));
+}
+.circleBack{
+    position: absolute;
+    top: 50px;
+    left: -400px;
+    width: 40vw;
+    height: 90vh;
+    border-radius: 50%;
+    background: radial-gradient(rgba(0, 150, 177, 0.61), rgba(7, 96, 112, 0.267), rgba(15, 21, 43, 0.575), rgba(15, 21, 43, 0.575)), rgba(15, 21, 43, 0.575);
+    z-index: -1;
+}
+.txt_index{
+    width: 700px;
+    color: white;
+}
+.h1_txt_index{
+    margin:30px 0;
+    font-size: 60px;
+}
+.txt_name_init_index{
+    background:linear-gradient(to right, var(--resartar),var(--AzulVerso));
+    width: fit-content;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.p_txt_index{
+    color: rgb(116, 123, 136);
+    width: 500px;
+}
+.InpClassic{
+    width: 350px;
+    height: 50px;
+    padding: 0 20px;
+    backdrop-filter: blur(100px);
+    border: 1px solid var(--AzulVerso);
+    border-radius: 10px;
+    outline: none;
+    background:rgb(0, 0, 0,.1);
+    font-size: 1.5rem;
+    font-family: "Barlow", sans-serif;
+    color:white;
+    margin: 0;
+}
+.nav-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    color: white;
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.lk-list{
+    color: rgb(207, 207, 207);
+    text-decoration: none;
+    font-size: large;
+}
+.lk-list:hover{
+    color: white;
+    text-decoration: none;
+    font-size: large;
+}
+.table{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 60%;
+    height: auto;
+    background-color:rgba(39, 45, 75, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 100px 20px;
+    gap: 100px;
+}
