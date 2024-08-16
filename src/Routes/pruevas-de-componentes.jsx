@@ -10,7 +10,8 @@ import Table from '../components/conteiners/Table'
 txt: para el stilo de los componentes
 lk: para el direcciones = src de los componentes
 cos: 'class of style' de los componentes
-
+cos_lk: 'class of style' to list
+phr: placeholder de un imput
 */
 function Pruevas_de_componentes() {
   return (

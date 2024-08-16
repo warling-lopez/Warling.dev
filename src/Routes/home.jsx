@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 function Home() {
   return (
     <>
-        <Logo lk={'/'} cos={'logo-img'}/>
-        <Link to={'/desing/pruevas'}>pruevas</Link>
+      <div>
+        <Logo />
+      </div>
     </>
   )
 }
