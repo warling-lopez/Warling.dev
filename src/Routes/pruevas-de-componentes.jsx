@@ -23,10 +23,7 @@ function Pruevas_de_componentes() {
         <Hello/>
         <Inp type={'email'} cos={'InpClassic'} phr={'Escribe tu coreo aqui'}/>
         <br />
-        <div>
         <Table/>
-
-        </div>
     </div>
   )
 }
