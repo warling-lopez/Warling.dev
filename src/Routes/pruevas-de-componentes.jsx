@@ -6,6 +6,8 @@ import Hello from '../components/conteiners/Hello_warling'
 import Nav from '../components/conteiners/Nav'
 import Circle_background from '../assets/desing_web/Circle_background'
 import Table from '../components/conteiners/Table'
+import User from '../components/conteiners/Users'
+import Users from "../../data/Users.json";
 /*
 txt: para el stilo de los componentes
 lk: para el direcciones = src de los componentes
@@ -24,6 +26,19 @@ function Pruevas_de_componentes() {
         <Inp type={'email'} cos={'InpClassic'} phr={'Escribe tu coreo aqui'}/>
         <br />
         <Table/>
+        <ul>
+
+        {Users.Usuarios.map( usuarios=> 
+          <User 
+            id={usuarios.id}
+            names={usuarios.nombre}
+            edad={usuarios.edad}
+            ciudad={usuarios.ciudad}
+          />
+        )}
+
+      </ul>
+
     </div>
   )
 }

@@ -1,0 +1,30 @@
+{
+  "Usuarios":[
+
+    {
+      "key":5,
+      "id": 1,
+      "nombre": "Juan",
+      "edad": 30,
+      "ciudad": "Madrid",
+      "perfilImg": "./images/juan.jpg"
+      },
+      {
+      "key":4,
+      "id": 2,
+      "nombre": "María",
+      "edad": 25,
+      "ciudad": "Barcelona",
+      "perfilImg": "./images/maria.jpg"
+      },
+      {
+      "key":3,
+      "id": 3,
+      "nombre": "Pedro",
+      "edad": 28,
+      "ciudad": "Valencia",
+      "perfilImg": "./images/pedro.jpg"
+      }
+    
+  ]
+}
