@@ -8,6 +8,7 @@ import Circle_background from '../assets/desing_web/Circle_background'
 import Table from '../components/conteiners/Table'
 import Model3DPersone from '/public/5224543-removebg-preview.png'
 import { Link } from 'react-router-dom'
+
 function Home() {
   return (
     <div className='body-home'>

@@ -6,8 +6,8 @@ import Hello from '../components/conteiners/Hello_warling'
 import Nav from '../components/conteiners/Nav'
 import Circle_background from '../assets/desing_web/Circle_background'
 import Table from '../components/conteiners/Table'
-import User from '../components/conteiners/Users'
-import Users from "../../data/Users.json";
+import User from '../api.data'
+import { Link } from 'react-router-dom'
 /*
 txt: para el stilo de los componentes
 lk: para el direcciones = src de los componentes
@@ -27,15 +27,8 @@ function Pruevas_de_componentes() {
         <br />
         <Table/>
         <ul>
-
-        {Users.Usuarios.map( usuarios=> 
-          <User 
-            id={usuarios.id}
-            names={usuarios.nombre}
-            edad={usuarios.edad}
-            ciudad={usuarios.ciudad}
-          />
-        )}
+          <Link to={'/Dashboard'}>Dash</Link>
+        <User/>
 
       </ul>
 

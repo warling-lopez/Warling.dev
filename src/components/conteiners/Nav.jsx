@@ -18,10 +18,10 @@ function Nav(props) {
         <Link to={'/'} className={list.cos_lk}>
           <li>Category</li>
         </Link>
-        <Link to={'/desing/pruevas/'} className={list.cos_lk}>
+        <Link to={'/'} className={list.cos_lk}>
           <li>Single Post</li>
         </Link>
-        <Link to={'/'} className={list.cos_lk}>
+        <Link to={'/desing/pruevas/'} className={list.cos_lk}>
           <li>Pages</li>
         </Link>
         <Link to={'/'} className={list.cos_lk}>
