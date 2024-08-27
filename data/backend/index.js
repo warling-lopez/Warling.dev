@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 // Conectar a la base de datos SQLite
-const db = new sqlite3.Database('./mi_base_de_datos.db', (err) => {
+const db = new sqlite3.Database('./datos_proyectos.db', (err) => {
     if (err) {
         console.error(err.message);
     }
@@ -17,16 +17,16 @@ const db = new sqlite3.Database('./mi_base_de_datos.db', (err) => {
 });
 
 // Crear la tabla de usuarios si no existe
-db.run(`CREATE TABLE IF NOT EXISTS usuarios (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nombre TEXT,
-    edad INTEGER,
-    ciudad TEXT
+db.run(`CREATE TABLE IF NOT EXISTS Proyectos (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Tittle TEXT,
+    Desc TEXT,
+    FtURL TEXT
 )`);
 
 // Endpoint para obtener todos los usuarios
-app.get('/api/usuarios', (req, res) => {
-    db.all('SELECT * FROM usuarios', [], (err, rows) => {
+app.get('/api/proyectos', (req, res) => {
+    db.all('SELECT * FROM proyectos', [], (err, rows) => {
         if (err) {
             res.status(400).json({ error: err.message });
             return;
@@ -38,17 +38,17 @@ app.get('/api/usuarios', (req, res) => {
 });
 
 // Endpoint para crear un nuevo usuario
-app.post('/api/usuarios', (req, res) => {
-    const { nombre, edad, ciudad } = req.body;
-    db.run(`INSERT INTO usuarios (nombre, edad, ciudad) VALUES (?, ?, ?)`,
-        [nombre, edad, ciudad],
+app.post('/api/proyectos', (req, res) => {
+    const { Tittle, Desc, FtURL } = req.body;
+    db.run(`INSERT INTO Proyectos (Tittle, Desc, FtURL) VALUES (?, ?, ?)`,
+        [Tittle, Desc, FtURL],
         function(err) {
             if (err) {
                 res.status(400).json({ error: err.message });
                 return;
             }
             res.json({
-                message: "Usuario creado",
+                message: "proyecto creado",
                 id: this.lastID
             });
         }

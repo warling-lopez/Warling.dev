@@ -15,3 +15,4 @@ Currently, two official plugins are available:
 - **cos**: 'Class of Style' para los componentes.
 - **cos_lk**: 'class of style' to list.
 - **phr**: placeholder de un imput.
+- **ID**: para de ser nesesarios de obtengan datos (imputs).
