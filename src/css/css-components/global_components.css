@@ -144,3 +144,15 @@ body{
     margin: 50px;
     z-index: 1;
 }
+.target_proyect{
+    display: grid;
+    grid-column: auto;
+    width: 150px;
+    height:150px;
+    border: 2px solid #333;
+    color: #ffffff;
+    overflow: hidden;
+}
+.colorTittleProyects{
+    color:aliceblue
+}

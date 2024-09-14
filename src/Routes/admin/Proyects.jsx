@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Inp from '../../components/Imput'
+import ProyectData from '../../components/conteiners/proyects_data'
 
 function Proyectos() {
   const [proyectos, setProyectos] = useState([]);
@@ -56,15 +57,25 @@ function Proyectos() {
 
   return (
     <div>
-      <h1>Lista de Proyectos</h1>
-      <Inp type={'text'} cos={'InpClassic'} phr={'Titulo Del Proyecto'} ID={'tittleProyect'}/>
-      <Inp type={'text'} cos={'InpClassic'} phr={'Descripcion'} ID={'descProyect'}/>
-      <Inp type={'text'} cos={'InpClassic'} phr={'URl De La Img'} ID={'urlImgProyect'}/>
-      
+      <h1 className='colorTittleProyects'>Lista de Proyectos</h1>
+      <Inp type={'text'} cos={'InpClassic'} phr={'Titulo Del Proyecto'} ID={'tittleProyect'} />
+      <Inp type={'text'} cos={'InpClassic'} phr={'Descripcion'} ID={'descProyect'} />
+      <Inp type={'text'} cos={'InpClassic'} phr={'URl De La Img'} ID={'urlImgProyect'} />
+
       <button onClick={crearProyectos}>Crear Usuario</button>
       <ul>
         {proyectos.map(proyecto => (
-          <li key={proyecto.Id}>{proyecto.Tittle} - {proyecto.Desc} - {proyecto.FtURL}</li>
+
+          <div key={proyecto.Id} >
+            <div className='target_proyect' >
+              <h3>
+              {proyecto.Tittle}
+              </h3>
+              <p>
+                {proyecto.Desc}
+              </p>
+            </div>
+          </div>
         ))}
       </ul>
     </div>

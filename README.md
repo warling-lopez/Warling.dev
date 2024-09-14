@@ -16,3 +16,4 @@ Currently, two official plugins are available:
 - **cos_lk**: 'class of style' to list.
 - **phr**: placeholder de un imput.
 - **ID**: para de ser nesesarios de obtengan datos (imputs).
+-**Title**: para los titulos
