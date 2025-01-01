@@ -146,9 +146,10 @@ body{
 }
 .target_proyect{
     display: grid;
+    place-items: center;
     grid-column: auto;
-    width: 150px;
-    height:150px;
+    width: 250px;
+    height:250px;
     border: 2px solid #333;
     color: #ffffff;
     overflow: hidden;
