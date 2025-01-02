@@ -10,7 +10,7 @@ function Table() {
   return (
     <div className='table'>
       <Skills icon={cloud} title={'Cloud Computing'} desc={'Uso de recursos informáticos a través de Internet, como almacenamiento y procesamiento de datos en la nube.'}/>
-      <Skills icon={plane} title={'Seo-camp'} desc={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit ducimus inventore, quam maxime tenetur.'}/>
+      <Skills icon={plane} title={'Desarrollo veloz'} desc={'Creamos soluciones ágiles y eficientes, adaptándonos rápidamente a las necesidades de tu proyecto para que alcances tus objetivos en tiempo récord.'}/>
       <Skills icon={seo} title={'Seo'} desc={'Mejorar la visibilidad de un sitio web en los resultados de búsqueda para atraer más tráfico orgánico.'}/>
       <Skills icon={stadistica} title={'Seo-camp'} desc={'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit ducimus inventore, quam maxime tenetur.'}/>
       <Skills icon={color} title={'Gestión de proyectos'} desc={'Capacidad para planificar, coordinar y ejecutar proyectos de principio a fin, asegurando que se cumplan los objetivos.'}/>
