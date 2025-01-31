@@ -5,6 +5,7 @@ import Pruevas_de_componentes from './Routes/pruevas-de-componentes'
 import Dashboard from './Routes/admin/Dashboard'
 import DashProyect from './Routes/admin/Proyects'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import "./css/css-apps/responsive.css"
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
