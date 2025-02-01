@@ -16,7 +16,7 @@ function Home() {
       
       <div className='navegacion'>
         <Logo lk={'/'} cos={'logo-img'}/>
-        <Nav cos={'nav-list'} cos_lk={'lk-list'}/>
+        <Nav cos={'nav-list'} cos_lk={'lk-list'} cos_menu={'menu-nav'}/>
         <Btn txt='PROYECTS' lk={'/'} cos={'btn-azul'}/>
       </div>
       <div className='justify'>

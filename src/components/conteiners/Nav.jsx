@@ -1,13 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import icon_menu from '/public/menu-alt-right.svg'
 
 function Nav(props) {
   const list ={
     cos:props.cos,
     cos_lk:props.cos_lk,
+    cos_menu:props.cos_menu,
+
+}
+const menu = ()=>{
+  // Añadimos un evento 'click' al botón
+  icon_menu.addEventListener('click', () => {
+    window.onload
+  });
 }
   return (
-    <div >      
+    <div >
+      {menu}
+      <img src={icon_menu} alt="menu" className={list.cos_menu}/>
       <ul className={list.cos}>
         <Link to={'/'} className={list.cos_lk}>
           <li>Home</li>

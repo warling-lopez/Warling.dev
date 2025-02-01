@@ -1,16 +1,26 @@
 @media (max-width: 800px){
+    .menu-nav{
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 70px;
+    }
     .navegacion{
         height: 100vh;
         position:fixed;
         display: grid;
-        grid-template-rows: repeat(4, 1fr);
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(1, 1fr);
+        place-content: center;
         gap: 50px;
         background-color: rgb(20, 23, 56);
         top: 0;
         z-index: 2;
-    }
+    }.navegacion div{
+        display: flex;
+        justify-content: center;
 
+    }
     .prueva_gap {
         display: grid;
         columns: auto;
@@ -21,6 +31,8 @@
         filter: drop-shadow(3px 4px 5px #272727);
         width: 150px;
         height: 70px;
+        display: flex;
+        justify-content: center;
     }
 
     .btn-azul {
@@ -125,7 +137,8 @@
 
     .nav-list {
         position: relative;
-        bottom: 0;
+        display:grid;
+        
     }
 
     .lk-list {
