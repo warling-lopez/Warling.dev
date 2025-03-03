@@ -6,16 +6,40 @@ import seo from '/public/seo.svg'
 import color from '/public/Color.svg'
 import stadistica from '/public/stadistica.svg'
 import zap from '/public/zap.svg'
+
 function Table() {
   return (
     <div className='table'>
-      <Skills icon={cloud} title={'Cloud Computing'} desc={'Uso de recursos informáticos a través de Internet, como almacenamiento y procesamiento de datos en la nube.'}/>
-      <Skills icon={plane} title={'Desarrollo veloz'} desc={'Creamos soluciones ágiles y eficientes, adaptándonos rápidamente a las necesidades de tu proyecto para que alcances tus objetivos en tiempo récord.'}/>
-      <Skills icon={seo} title={'Seo'} desc={'Mejorar la visibilidad de un sitio web en los resultados de búsqueda para atraer más tráfico orgánico.'}/>
-      <Skills icon={stadistica} title={'gana mas dinero'}desc={'Optimiza tus recursos y maximiza tus ingresos con estrategias diseñadas para hacer crecer tu negocio de manera sostenible.'}/>
-      <Skills icon={color} title={'Gestión de proyectos'} desc={'Capacidad para planificar, coordinar y ejecutar proyectos de principio a fin, asegurando que se cumplan los objetivos.'}/>
-      <Skills icon={zap} title={'Automatización '} desc={'Optimización del rendimiento del código para que las aplicaciones funcionen de manera más rápida y eficiente.'}/>
-      
+      <Skills 
+        icon={cloud} 
+        title={'Cloud Computing'} 
+        desc={'Utilizo recursos informáticos a través de Internet, aprovechando el almacenamiento y procesamiento en la nube para potenciar la infraestructura de su empresa.'}
+      />
+      <Skills 
+        icon={plane} 
+        title={'Desarrollo veloz'} 
+        desc={'Desarrollo soluciones ágiles y eficientes, adaptándome rápidamente a las necesidades de su empresa para alcanzar sus objetivos en tiempo récord.'}
+      />
+      <Skills 
+        icon={seo} 
+        title={'SEO'} 
+        desc={'Mejoro la visibilidad del sitio web de su empresa en los resultados de búsqueda para atraer mayor tráfico orgánico.'}
+      />
+      <Skills 
+        icon={stadistica} 
+        title={'Gana más dinero'} 
+        desc={'Aplico estrategias diseñadas para maximizar el rendimiento financiero, impulsando el crecimiento sostenible de su empresa.'}
+      />
+      <Skills 
+        icon={color} 
+        title={'Gestión de proyectos'} 
+        desc={'Planifico, coordino y ejecuto proyectos de principio a fin, asegurando que se cumplan los objetivos establecidos para su empresa.'}
+      />
+      <Skills 
+        icon={zap} 
+        title={'Automatización'} 
+        desc={'Optimizo el rendimiento del código para asegurar que las aplicaciones de su empresa funcionen de manera rápida y eficiente.'}
+      />
     </div>
   )
 }
