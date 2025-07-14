@@ -1,14 +1,29 @@
 "use client";
 import { Allan } from "next/font/google";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-
-export default function Logo() {
+import "./styleLogo.css"
+const Logo = () => {
+  const router = useRouter();
   const [showNotification, setShowNotification] = useState(true);
   const [initComplete, setInitComplete] = useState(false);
   const [initConditional, setInitConditional] = useState(false);
   const [showAIResponse, setShowAIResponse] = useState(false);
   const [mensaje, setMensaje] = useState("");
   const [expandirDiamante, setExpandirDiamante] = useState(false); // NUEVO
+
+  useEffect(() => {
+    sessionStorage.setItem("showNotification", showNotification);
+  }, [showNotification]);
+  useEffect(() => {
+    sessionStorage.setItem("initConditional", initConditional);
+  }, [initConditional]);
+  useEffect(() => {
+    sessionStorage.setItem("expandirDiamante", expandirDiamante);
+  }, [expandirDiamante]);
+  useEffect(() => {
+    sessionStorage.setItem("initComplete", initComplete);
+  }, [initComplete]);
 
   const eventos = [
     { tipo: "sistema", texto: "Cargando memoria..." },
@@ -33,10 +48,12 @@ export default function Logo() {
     }
 
     const init = sessionStorage.getItem("initComplete");
-    if (init === "false") {
-      setInitComplete(true);
+    if (init === "true") {
+      setInitComplete(false);
     }
   }, []);
+  //detiene el tiempo
+  // ← se ejecuta cuando cambia miValor
 
   const ejecutarEventos = (indice) => {
     if (indice < eventos.length) {
@@ -44,6 +61,7 @@ export default function Logo() {
 
       if (evento.tipo === "audio" && evento.audio) {
         const audio = new Audio(evento.audio);
+
         audio.play().catch((e) => {
           console.warn("No se pudo reproducir el audio:", e);
         });
@@ -54,11 +72,21 @@ export default function Logo() {
       }
 
       setMensaje(evento.texto);
-
-      if (indice === eventos.length - 1) {
+      if (indice === eventos.length - 1 || initConditional) {
         setShowAIResponse(true);
         setInitConditional(false);
-        setTimeout(() => setExpandirDiamante(true), 3000);
+        const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+        const iniciarSecuencia = async () => {
+          console.log("Inicio");
+          await sleep(5800); // espera 3 segundos
+          console.log("Después de 3 segundos");
+          setExpandirDiamante(true);
+          await sleep(9000);
+          router.push("/routes");
+        };
+
+        iniciarSecuencia(); // inicia la secuencia con espera
       }
 
       setTimeout(() => ejecutarEventos(indice + 1), 2000);
@@ -67,8 +95,6 @@ export default function Logo() {
 
   const initAnimation = () => {
     sessionStorage.setItem("notifyAIWarling", "false");
-    sessionStorage.setItem("initComplete", "false");
-    sessionStorage.setItem("initConditional", "false");
     setShowNotification(false);
     setInitComplete(true);
     setInitConditional(true);
@@ -109,7 +135,6 @@ export default function Logo() {
     background: "radial-gradient(var(--specialColor), var(--specialColorLogo))",
     clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
     boxShadow: "1px 6px 12px #333",
-    transition: "all 1s ease-in-out", // Animación suave
     zIndex: 1,
   };
 
@@ -127,7 +152,7 @@ export default function Logo() {
     position: "absolute",
     top: "-60px",
     left: "30px",
-    right:"auto",
+    right: "auto",
     minWidth: "250px",
     width: "auto",
     padding: "15px 17px",
@@ -136,7 +161,7 @@ export default function Logo() {
     borderRadius: "10px",
     fontSize: "1rem",
     lineHeight: 1.2,
-    opacity: mensaje ? 1 : 0,
+    opacity: 1,
     transition: "opacity 0.5s ease-in",
     zIndex: 10,
   };
@@ -169,10 +194,14 @@ export default function Logo() {
             />
           </span>
         )}
-        
-        <div style={diamondStyle}/>
+
+        <div
+          style={diamondStyle}
+          className={initComplete ? "animationVoice" : ""}
+        />
         {mensaje && <div style={aiBoxStyle}>{mensaje}</div>}
       </button>
     </div>
   );
-}
+};
+export default Logo;

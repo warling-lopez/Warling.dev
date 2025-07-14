@@ -46,27 +46,25 @@
 }
 
 /* ——— NUEVAS REGLAS PARA LA CAJA DE RESPUESTA IA ——— */
+.animationVoice {
+  /* optimizaciones */
+  /* 3. Animación */
 
-.ai-response {
-  position: absolute;
-  top: -30px;       /* 30px por encima del avatar */
-  right: 30px;      /* 30px a la izquierda del borde derecho */
-  width: 150px;     /* ancho rectangular */
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  line-height: 1.2;
-  opacity: 0;
-  transform: translateY(10px);
-  z-index: 2;
-  animation: fadeInUp 0.4s ease-out forwards;
+  animation: voiceIA 1s ease-in-out infinite;
+  will-change: transform, filter, box-shadow;
 }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* 2.1. Keyframes */
+@keyframes voiceIA {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+    box-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.4);
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.8);
   }
 }
