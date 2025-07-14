@@ -1,21 +1,8 @@
-
-.logo{
+.logo {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-@keyframes floatingLogo {
-  0%   { transform: translate(0px, -10px); }
-  10%  { transform: translate(5.88px, -8.09px); }
-  20%  { transform: translate(9.51px, -3.09px); }
-  30%  { transform: translate(7.51px, 3.09px); }
-  40%  { transform: translate(5.88px, 8.09px); }
-  50%  { transform: translate(0px, 10px); }
-  60%  { transform: translate(-5.88px, 7.09px); }
-  70%  { transform: translate(-9.51px, 3.09px); }
-  80%  { transform: translate(-7.51px, -3.09px); }
-  90%  { transform: translate(-5.88px, -8.09px); }
-  100% { transform: translate(0px, -10px); }
+  position: relative; /* añadido: contenedor relativo para posicionar el cuadro */
 }
 
 .diamond-container {
@@ -23,27 +10,63 @@
   top: 0;
   width: 50px;
   height: 100px;
-  background: radial-gradient(
-    
-    var(--specialColor),
-    var(--specialColorLogo) 
-  );
+  background: radial-gradient(var(--specialColor), var(--specialColorLogo));
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   box-shadow: 1px 6px 12px #333;
-  animation: floatingLogo 20s linear infinite;
-  
   z-index: 1;
 }
 
 /* Borde brillante */
 .diamond-container::before {
-  content: '';
+  content: "";
   position: absolute;
-  inset: -2px; /* Para expandir ligeramente fuera */
+  inset: -2px;
   background: none;
-  border: 2px solid rgba(255, 255, 255, 0.6); /* blanco semitransparente */
+  border: 2px solid rgba(255, 255, 255, 0.6);
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  border-radius: 0; /* por compatibilidad */
-  z-index: -1; /* debajo del diamante */
+  border-radius: 0;
+  z-index: -1;
   pointer-events: none;
+}
+
+.logoConditional {
+  display: grid;
+  position: absolute;
+  width: 100vw;
+  animation: moverCenter 1s forwards;
+}
+
+@keyframes moverCenter {
+  from {
+    top: 0;
+  }
+  to {
+    top: 40vh;
+  }
+}
+
+/* ——— NUEVAS REGLAS PARA LA CAJA DE RESPUESTA IA ——— */
+
+.ai-response {
+  position: absolute;
+  top: -30px;       /* 30px por encima del avatar */
+  right: 30px;      /* 30px a la izquierda del borde derecho */
+  width: 150px;     /* ancho rectangular */
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(10px);
+  z-index: 2;
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
