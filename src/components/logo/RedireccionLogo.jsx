@@ -80,7 +80,8 @@ export default function RedireccionLogo() {
         <div style={diamondStyle} />
         <div className="h-[600px] ml-10 mt-2 flex items-center">
           <div className="grid place-items-center relative h-full w-[400px] left-[50%]">
-            {direction.map(({ name, description, orden }, index) => {
+            
+            {direction.map(({ name, description, orden }, index) => { //mapa para las opciones de redirección
               const isSecond = index === 1;
               return (
                 <div key={index}>
@@ -90,7 +91,7 @@ export default function RedireccionLogo() {
                     }`}
                     onClick={() => {
                       const ordenString = orden.join("");
-                      router.push(`/test?orden=${ordenString}`);
+                      router.push(`/test?orden=${ordenString}`); //manda una query string con el orden
                     }}
                   >
                     <div
