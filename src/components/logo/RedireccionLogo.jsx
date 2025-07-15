@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function RedireccionLogo() {
   const outerStyle = {
     position: "absolute",
@@ -38,7 +40,7 @@ export default function RedireccionLogo() {
   const aiBoxStyle = {
     color: "#fefefe",
     minWidth: "400px",
-    maxHeight: "80px",
+    minHeight: "80px",
     background: "rgba(255,255,255,0)",
     border: "1px solid var(--specialColor)",
     borderRadius: "10px",
@@ -47,22 +49,25 @@ export default function RedireccionLogo() {
 
   const direction = [
     {
-      name: "Soy reclutador",
+      name: "Soy un Reclutador",
       description:
         "Prefieres ver los proyectos y conocimientos antes que mis pensamientos u ideas a futuro",
       orden: [1, 2, 3, 4],
+      url: "/",
     },
     {
-      name: "Soy reclutador",
+      name: "Soy un Desarrollador",
       description:
         "Prefieres ver los proyectos y conocimientos antes que mis pensamientos u ideas a futuro",
       orden: [1, 2, 3, 4],
+      url: "/",
     },
     {
-      name: "Soy reclutador",
+      name: "Busco un Freelancer",
       description:
         "Prefieres ver los proyectos y conocimientos antes que mis pensamientos u ideas a futuro",
       orden: [1, 2, 3, 4],
+      url: "/",
     },
   ];
 
@@ -70,17 +75,26 @@ export default function RedireccionLogo() {
     <div style={outerStyle}>
       <button style={buttonStyle}>
         <div style={diamondStyle} />
-        <div className="grid align-center h-[75vh] gap-5 mt-5 w-full">
-          <div>
+        <div className="h-[600px] ml-10 mt-2 flex items-center">
+          <div className="grid place-items-center relative h-full w-[400px] left-[50%]">
             {direction.map(({ name, description, orden }, index) => {
+              const isSecond = index === 1;
               return (
-                <div
+                <button
                   key={index}
-                  style={aiBoxStyle}
-                  className="flex items-center justify-center"
+                  className={`${
+                    isSecond ? "flex justify-start ml-[250px]" : ""
+                  }`}
                 >
-                  <h3 className="text-3xl text-center ">{name}</h3>
-                </div>
+                  <Link href={direction[index].url}>
+                    <div
+                      style={aiBoxStyle}
+                      className="flex items-center ml-[-150px] justify-center hover:scale-105 transition-transform duration-200 ease-in-out"
+                    >
+                      <h3 className="text-3xl text-center ">{name}</h3>
+                    </div>
+                  </Link>
+                </button>
               );
             })}
           </div>
