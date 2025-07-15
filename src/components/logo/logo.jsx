@@ -113,7 +113,7 @@ const Logo = () => {
     transition: initConditional ? "top 1s ease-out" : undefined,
     justifyContent: "center",
     alignItems: "center",
-    transition: "all 1s ease-in-out", // Animación suave
+    transition: "all 1.5s ease-in-out", // Animación suave
   };
 
   const buttonStyle = {

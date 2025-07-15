@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 export default function RedireccionLogo() {
+  const router = useRouter();
   const outerStyle = {
     position: "absolute",
     top: "10vh",
@@ -59,20 +60,22 @@ export default function RedireccionLogo() {
       name: "Soy un Desarrollador",
       description:
         "Prefieres ver los proyectos y conocimientos antes que mis pensamientos u ideas a futuro",
-      orden: [1, 2, 3, 4],
+      orden: [2, 1, 3, 4],
       url: "/",
     },
     {
       name: "Busco un Freelancer",
       description:
         "Prefieres ver los proyectos y conocimientos antes que mis pensamientos u ideas a futuro",
-      orden: [1, 2, 3, 4],
+      orden: [1, 2, 4, 3],
       url: "/",
     },
   ];
 
+  const routes = () => {};
+
   return (
-    <div style={outerStyle}>
+    <div id="logoContainer" style={outerStyle}>
       <button style={buttonStyle}>
         <div style={diamondStyle} />
         <div className="h-[600px] ml-10 mt-2 flex items-center">
@@ -80,21 +83,24 @@ export default function RedireccionLogo() {
             {direction.map(({ name, description, orden }, index) => {
               const isSecond = index === 1;
               return (
-                <button
-                  key={index}
-                  className={`${
-                    isSecond ? "flex justify-start ml-[250px]" : ""
-                  }`}
-                >
-                  <Link href={direction[index].url}>
+                <div key={index}>
+                  <button
+                    className={`${
+                      isSecond ? "flex justify-start ml-[250px]" : ""
+                    }`}
+                    onClick={() => {
+                      const ordenString = orden.join("");
+                      router.push(`/test?orden=${ordenString}`);
+                    }}
+                  >
                     <div
                       style={aiBoxStyle}
                       className="flex items-center ml-[-150px] justify-center hover:scale-105 transition-transform duration-200 ease-in-out"
                     >
                       <h3 className="text-3xl text-center ">{name}</h3>
                     </div>
-                  </Link>
-                </button>
+                  </button>
+                </div>
               );
             })}
           </div>
