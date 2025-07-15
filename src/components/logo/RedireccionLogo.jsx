@@ -72,7 +72,7 @@ export default function RedireccionLogo() {
     },
   ];
 
-  const routes = () => {};
+
 
   return (
     <div id="logoContainer" style={outerStyle}>
