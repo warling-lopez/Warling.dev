@@ -88,7 +88,7 @@ export default function RedireccionLogo() {
                   <button
                     className={`${
                       isSecond ? "flex justify-start ml-[250px]" : ""
-                    }`}
+                    }`} 
                     onClick={() => {
                       const ordenString = orden.join("");
                       router.push(`/test?orden=${ordenString}`); //manda una query string con el orden
