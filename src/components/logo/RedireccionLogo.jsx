@@ -76,7 +76,7 @@ export default function RedireccionLogo() {
 
   return (
     <div id="logoContainer" style={outerStyle}>
-      <button style={buttonStyle}>
+      <span style={buttonStyle}>
         <div style={diamondStyle} />
         <div className="h-[600px] ml-10 mt-2 flex items-center">
           <div className="grid place-items-center relative h-full w-[400px] left-[50%]">
@@ -106,7 +106,7 @@ export default function RedireccionLogo() {
             })}
           </div>
         </div>
-      </button>
+      </span>
     </div>
   );
 }
