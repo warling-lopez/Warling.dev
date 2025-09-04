@@ -1,33 +1,22 @@
-// warling prueba startup
 "use client";
 import { useRouter } from "next/navigation";
-import Router from "next/router";
 import React, { useState, useEffect, useRef } from "react";
 
-// NOTA: Este componente asume que las siguientes librerías están cargadas globalmente
-// en tu archivo index.html, tal como estaban en el HTML original:
+// NOTE: This component assumes the following libraries are globally loaded
+// in your index.html file, as they were in the original HTML:
 // - Tailwind CSS
 // - Lucide Icons (lucide)
 // - PDF.js (pdfjsLib)
 // - Draggabilly
 // - Signature Pad
 
-const FormulariosDigitalesPro = () => {
+const DigitalFormsPro = () => {
   const router = useRouter();
+
   const [currentView, setCurrentView] = useState("dashboard"); // 'dashboard', 'editor', 'filler'
   const [templates, setTemplates] = useState([
-    {
-      id: 1,
-      name: "Contrato de Servicios.pdf",
-      date: "01/08/2025",
-      fields: [],
-    },
-    {
-      id: 2,
-      name: "Consentimiento Informado.pdf",
-      date: "28/07/2025",
-      fields: [],
-    },
+    { id: 1, name: "Service Agreement.pdf", date: "01/08/2025", fields: [] },
+    { id: 2, name: "Informed Consent.pdf", date: "28/07/2025", fields: [] },
   ]);
   const [currentTemplate, setCurrentTemplate] = useState(null);
   const [showShareModal, setShowShareModal] = useState(false);
@@ -42,11 +31,11 @@ const FormulariosDigitalesPro = () => {
   const signatureCanvasRef = useRef(null);
 
   useEffect(() => {
-    // Inicializa los iconos de Lucide cuando el componente se monta
+    // Initializes Lucide icons when the component mounts
     if (window.lucide) {
       window.lucide.createIcons();
     }
-  }, [currentView, showShareModal]); // Vuelve a ejecutar si la vista cambia para renderizar nuevos iconos
+  }, [currentView, showShareModal]); // Re-runs if the view changes to render new icons
 
   const renderPdf = (url) => {
     if (!pdfCanvasRef.current || !window.pdfjsLib) return;
@@ -75,7 +64,7 @@ const FormulariosDigitalesPro = () => {
   const initDraggables = () => {
     if (!window.Draggabilly) return;
 
-    // Limpia las instancias anteriores
+    // Clears previous instances
     draggiesRef.current.forEach((d) => d.destroy());
     draggiesRef.current = [];
 
@@ -107,7 +96,7 @@ const FormulariosDigitalesPro = () => {
       );
       initDraggables();
     }
-    // Cleanup function para destruir draggies al cambiar de vista
+    // Cleanup function to destroy draggies when the view changes
     return () => {
       draggiesRef.current.forEach((d) => d.destroy());
       draggiesRef.current = [];
@@ -148,7 +137,7 @@ const FormulariosDigitalesPro = () => {
       const newTemplate = {
         id: templates.length + 1,
         name: file.name,
-        date: new Date().toLocaleDateString("es-ES"),
+        date: new Date().toLocaleDateString("en-US"),
         fields: [],
         fileUrl: URL.createObjectURL(file),
       };
@@ -222,7 +211,7 @@ const FormulariosDigitalesPro = () => {
 
   const saveSignature = () => {
     if (signaturePadRef.current?.isEmpty()) {
-      alert("Por favor, provea una firma.");
+      alert("Please provide a signature.");
     } else {
       setShowSignatureModal(false);
       showSuccessMessage();
@@ -230,7 +219,7 @@ const FormulariosDigitalesPro = () => {
   };
 
   const submitForm = () => {
-    console.log("Formulario enviado con datos:", currentTemplate.fields);
+    console.log("Form submitted with data:", currentTemplate.fields);
     showSuccessMessage();
     setCurrentView("dashboard");
   };
@@ -258,19 +247,19 @@ const FormulariosDigitalesPro = () => {
                 />
               </svg>
               <h1 className="text-xl font-bold text-gray-800">
-                Formularios Digitales Pro
+                Digital Forms Pro
               </h1>
             </div>
             <div>
-              <button onClick={() => router.push("/test/form/en")}>EN</button>
+              <button onClick={() => router.push("/test/form")}>ES</button>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600">
-                Bienvenido, Negocio Pequeño
+                Welcome, Small Business
               </span>
               <img
                 className="h-9 w-9 rounded-full"
-                src="https://placehold.co/100x100/e2e8f0/475569?text=NP"
+                src="https://placehold.co/100x100/e2e8f0/475569?text=SB"
                 alt="Avatar"
               />
             </div>
@@ -283,14 +272,14 @@ const FormulariosDigitalesPro = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-semibold text-gray-900">
-                Panel de Control
+                Dashboard
               </h2>
               <label
                 htmlFor="pdf-upload-input"
                 className="cursor-pointer inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 <i data-lucide="upload" className="mr-2 h-5 w-5"></i>
-                Subir Nuevo PDF
+                Upload New PDF
               </label>
               <input
                 type="file"
@@ -308,13 +297,13 @@ const FormulariosDigitalesPro = () => {
                     className="border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                     aria-current="page"
                   >
-                    Mis Plantillas
+                    My Templates
                   </a>
                   <a
                     href="#"
                     className="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
                   >
-                    Envíos Recibidos
+                    Received Submissions
                   </a>
                 </nav>
               </div>
@@ -334,7 +323,7 @@ const FormulariosDigitalesPro = () => {
                           {template.name}
                         </p>
                         <p className="text-sm text-gray-500">
-                          Subido el {template.date}
+                          Uploaded on {template.date}
                         </p>
                       </div>
                     </div>
@@ -343,15 +332,14 @@ const FormulariosDigitalesPro = () => {
                         onClick={() => editTemplate(template.id)}
                         className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center"
                       >
-                        <i data-lucide="edit" className="mr-1 h-4 w-4"></i>
-                        Editar
+                        <i data-lucide="edit" className="mr-1 h-4 w-4"></i>Edit
                       </button>
                       <button
                         onClick={() => openShareModal(template)}
                         className="text-green-600 hover:text-green-800 text-sm font-medium flex items-center"
                       >
                         <i data-lucide="share-2" className="mr-1 h-4 w-4"></i>
-                        Compartir
+                        Share
                       </button>
                       <button className="text-gray-500 hover:text-gray-700">
                         <i data-lucide="more-vertical" className="h-5 w-5"></i>
@@ -373,7 +361,7 @@ const FormulariosDigitalesPro = () => {
               className="flex items-center text-sm font-medium text-gray-600 hover:text-gray-900"
             >
               <i data-lucide="arrow-left" className="mr-2 h-4 w-4"></i>
-              Volver al Panel
+              Back to Dashboard
             </button>
             <div className="text-lg font-semibold text-gray-800">
               {currentTemplate.name}
@@ -384,18 +372,18 @@ const FormulariosDigitalesPro = () => {
                 className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
               >
                 <i data-lucide="share-2" className="mr-2 h-4 w-4"></i>
-                Compartir
+                Share
               </button>
               <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
                 <i data-lucide="save" className="mr-2 h-4 w-4"></i>
-                Guardar Plantilla
+                Save Template
               </button>
             </div>
           </div>
           <div className="flex-1 flex overflow-hidden">
             <aside className="w-64 bg-gray-50 p-6 border-r border-gray-200 overflow-y-auto">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                Añadir Campos
+                Add Fields
               </h3>
               <div className="space-y-3">
                 <div
@@ -406,9 +394,7 @@ const FormulariosDigitalesPro = () => {
                     data-lucide="type"
                     className="h-5 w-5 text-gray-500 mr-3"
                   ></i>
-                  <span className="font-medium text-gray-700">
-                    Campo de Texto
-                  </span>
+                  <span className="font-medium text-gray-700">Text Field</span>
                 </div>
                 <div
                   onClick={() => addField("date")}
@@ -418,7 +404,7 @@ const FormulariosDigitalesPro = () => {
                     data-lucide="calendar"
                     className="h-5 w-5 text-gray-500 mr-3"
                   ></i>
-                  <span className="font-medium text-gray-700">Fecha</span>
+                  <span className="font-medium text-gray-700">Date</span>
                 </div>
                 <div
                   onClick={() => addField("checkbox")}
@@ -438,7 +424,7 @@ const FormulariosDigitalesPro = () => {
                     data-lucide="pen-tool"
                     className="h-5 w-5 text-gray-500 mr-3"
                   ></i>
-                  <span className="font-medium text-gray-700">Firma</span>
+                  <span className="font-medium text-gray-700">Signature</span>
                 </div>
               </div>
             </aside>
@@ -468,12 +454,12 @@ const FormulariosDigitalesPro = () => {
                       <i data-lucide="move" className="h-3 w-3"></i>
                     </div>
                     <div className="w-full h-full flex items-center justify-center text-sm text-blue-800">
-                      {field.type === "text" && <span>Texto</span>}
-                      {field.type === "date" && <span>Fecha</span>}
+                      {field.type === "text" && <span>Text</span>}
+                      {field.type === "date" && <span>Date</span>}
                       {field.type === "checkbox" && (
                         <div className="w-4 h-4 border-2 border-blue-400"></div>
                       )}
-                      {field.type === "signature" && <span>Firma aquí</span>}
+                      {field.type === "signature" && <span>Sign here</span>}
                     </div>
                     <div className="resizable-handle"></div>
                     <button
@@ -495,13 +481,13 @@ const FormulariosDigitalesPro = () => {
           <header className="bg-white shadow-sm">
             <div className="max-w-4xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
               <h2 className="text-xl font-semibold text-gray-800">
-                Llenar: {currentTemplate.name}
+                Fill: {currentTemplate.name}
               </h2>
               <button
                 onClick={() => setCurrentView("dashboard")}
                 className="text-sm font-medium text-gray-600 hover:text-gray-900"
               >
-                Cerrar
+                Close
               </button>
             </div>
           </header>
@@ -511,9 +497,9 @@ const FormulariosDigitalesPro = () => {
               className="relative bg-white p-4 rounded-lg shadow-lg"
             >
               <img
-                src="https://placehold.co/800x1131/ffffff/000000?text=Formulario+de+Ejemplo"
+                src="https://placehold.co/800x1131/ffffff/000000?text=Example+Form"
                 className="max-w-full h-auto"
-                alt="Formulario de ejemplo"
+                alt="Example form"
               />
               {currentTemplate.fields.map((field) => (
                 <div
@@ -529,7 +515,7 @@ const FormulariosDigitalesPro = () => {
                   {field.type === "text" && (
                     <input
                       type="text"
-                      placeholder="Escriba aquí..."
+                      placeholder="Type here..."
                       className="form-element-input"
                     />
                   )}
@@ -550,7 +536,7 @@ const FormulariosDigitalesPro = () => {
                       className="w-full h-full bg-yellow-100 border border-yellow-400 rounded-md cursor-pointer flex items-center justify-center text-gray-500 text-sm"
                     >
                       <i data-lucide="pen-tool" className="mr-2 h-4 w-4"></i>{" "}
-                      Haz clic para firmar
+                      Click to sign
                     </div>
                   )}
                 </div>
@@ -562,7 +548,7 @@ const FormulariosDigitalesPro = () => {
               onClick={submitForm}
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
-              Enviar Formulario
+              Submit Form
             </button>
           </footer>
         </div>
@@ -572,13 +558,13 @@ const FormulariosDigitalesPro = () => {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center z-30">
           <div className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-semibold">Compartir Formulario</h3>
+              <h3 className="text-xl font-semibold">Share Form</h3>
               <button onClick={() => setShowShareModal(false)}>
                 <i data-lucide="x" className="h-6 w-6 text-gray-500"></i>
               </button>
             </div>
             <p className="text-gray-600 mb-4">
-              Cualquiera con este enlace podrá llenar y enviar el formulario.
+              Anyone with this link can fill out and submit the form.
             </p>
             <div className="flex items-center space-x-2 bg-gray-100 p-2 rounded-md">
               <input
@@ -592,7 +578,7 @@ const FormulariosDigitalesPro = () => {
                 onClick={copyShareLink}
                 className="px-3 py-1 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600"
               >
-                Copiar
+                Copy
               </button>
             </div>
             <div className="mt-6 flex justify-end space-x-3">
@@ -600,7 +586,7 @@ const FormulariosDigitalesPro = () => {
                 onClick={previewForm}
                 className="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
-                Vista Previa
+                Preview
               </button>
             </div>
           </div>
@@ -611,7 +597,7 @@ const FormulariosDigitalesPro = () => {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-40">
           <div className="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full">
             <h3 className="text-lg font-medium leading-6 text-gray-900 mb-4">
-              Firme en el recuadro
+              Sign in the box
             </h3>
             <canvas
               ref={signatureCanvasRef}
@@ -623,13 +609,13 @@ const FormulariosDigitalesPro = () => {
                 onClick={clearSignature}
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
               >
-                Limpiar
+                Clear
               </button>
               <button
                 onClick={saveSignature}
                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700"
               >
-                Guardar Firma
+                Save Signature
               </button>
             </div>
           </div>
@@ -638,9 +624,9 @@ const FormulariosDigitalesPro = () => {
 
       {showSuccess && (
         <div className="fixed top-5 right-5 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg shadow-md z-50">
-          <strong className="font-bold">¡Éxito!</strong>
+          <strong className="font-bold">Success!</strong>
           <span className="block sm:inline ml-2">
-            Acción completada correctamente.
+            Action completed successfully.
           </span>
         </div>
       )}
@@ -648,4 +634,4 @@ const FormulariosDigitalesPro = () => {
   );
 };
 
-export default FormulariosDigitalesPro;
+export default DigitalFormsPro;
