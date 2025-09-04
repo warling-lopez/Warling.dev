@@ -9,11 +9,11 @@ export default function Page() {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Orden personalizado</h1>
       {ordenNumerico?.map((n) => (
-        <section key={n} classHere Im testing somethingName="mb-4 p-4 bg-gray-100 rounded">
+        <section key={n} className="mb-4 p-4 bg-gray-100 rounded">
           <h2 className="text-lg font-semibold">Sección {n}</h2>
           {/* Aquí puedes renderizar los componentes reales según el número */}
         </section>
-      ))}
+      ))}zzzzz
     </div>
   );
 }
