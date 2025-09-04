@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 
 // --- Contenido de Texto (Inglés y Español) ---
