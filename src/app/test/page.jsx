@@ -1,11 +1,9 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const orden = searchParams.get("orden"); // por ejemplo, "4132"
+  const orden = [4, 1, 3, 2]
 
-  const ordenNumerico = orden?.split('').map(Number); // [4, 1, 3, 2]
+  const ordenNumerico = orden?.map(Number); // [4, 1, 3, 2]
 
   return (
     <div className="p-6">
