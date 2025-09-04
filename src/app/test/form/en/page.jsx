@@ -180,8 +180,8 @@ const DigitalFormsPro = () => {
 
   const openShareModal = (template) => {
     setCurrentTemplate(template);
-    setShareLink(`https://your-app.com/form/${template.id}/${Date.now()}`);
-    setShowShareModal(true);
+    setShareLink(`https://warling.top/test/form/en/${template.id}/${Date.now()}`);
+    setShowShareModal(true); 
   };
 
   const copyShareLink = () => {

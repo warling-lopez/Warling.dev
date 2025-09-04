@@ -191,7 +191,7 @@ const FormulariosDigitalesPro = () => {
 
   const openShareModal = (template) => {
     setCurrentTemplate(template);
-    setShareLink(`https://your-app.com/form/${template.id}/${Date.now()}`);
+    setShareLink(`https://warling.top/test/form${template.id}/${Date.now()}`);
     setShowShareModal(true);
   };
 
