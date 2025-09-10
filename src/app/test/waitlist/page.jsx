@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Camera,
   Sparkles,
@@ -17,15 +17,21 @@ import {
   TrendingUp,
 } from "lucide-react";
 import PopupComponent from "./components/PopupComponent";
+import BeforeToAfter from "./components/BeforeToAfter";
 
 export default function AIPhotoEditorWaitlist() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [language, setLanguage] = useState("en");
+
+ const [language, setLanguage] = useState("en");
   const [waitlistCount, setWaitlistCount] = useState(24);
 
   const translations = {
     en: {
+      options: {
+        en: "English",
+        es: "Spanish",
+      },
       hero: {
         badge: "🚀 Exclusive Early Access",
         title: "Sell More with Stunning AI Product Photos",
@@ -34,6 +40,7 @@ export default function AIPhotoEditorWaitlist() {
         cta: "Join the Waitlist - It's Free",
         emailPlaceholder: "Enter your email for early access",
         urgency: "⚡ Limited beta spots available",
+        people: "people have already joined",
       },
       features: {
         title: "Why Sellers Love This Tool",
@@ -70,7 +77,7 @@ export default function AIPhotoEditorWaitlist() {
         title: "See the Difference",
         subtitle: "Why sellers choose us over PhotoRoom, Pixlr, and others.",
         table: {
-          headers: ["Características", "Nuestra Solución", "Otras Soluciones"],
+          headers: ["Features", "Our Solution", "Other Solutions"],
           items: [
             {
               feature: "Estilos de Fotografía Profesional",
@@ -257,17 +264,22 @@ export default function AIPhotoEditorWaitlist() {
     },
 
     es: {
+      options: {
+        en: "Inglés",
+        es: "Español",
+      },
       hero: {
         badge: "🚀 Acceso Anticipado Exclusivo",
-        title: "Vende Más con Fotos de Producto Profesionales",
+        title: "Vende Más Con Fotos De Producto Profesionales",
         subtitle:
           "Convierte fotos caseras en imágenes irresistibles que atraen y venden más, en segundos.",
         cta: "Unirse a la Lista de Espera - Es Gratis",
         emailPlaceholder: "Introduce tu email para acceso anticipado",
         urgency: "⚡ Plazas beta limitadas",
+        people: "personas ya se han unido",
       },
       features: {
-        title: "Por Qué los Vendedores eligen Esta Herramienta",
+        title: "Para Quién es Esta Herramienta",
         subtitle:
           "Hecha para e-commerce, marketing y pequeños negocios que quieren aumentar sus ventas.",
         list: [
@@ -302,40 +314,40 @@ export default function AIPhotoEditorWaitlist() {
         subtitle:
           "Por qué los vendedores nos eligen sobre PhotoRoom, Pixlr y otros.",
         table: {
-          headers: ["Características", "Nuestra Solución", "Otras Soluciones"],
-          items: [
-            {
-              feature: "Estilos de Fotografía Profesional",
-              us: true,
-              others: "Básico",
-            },
-            {
-              feature: "Integración con Modelos Lifestyle",
-              us: true,
-              others: false,
-            },
-            {
-              feature: "Calidad Comercial Real",
-              us: true,
-              others: "Limitada",
-            },
-            {
-              feature: "Procesamiento Ultra-Rápido (8s)",
-              us: true,
-              others: "5-10 min",
-            },
-            {
-              feature: "Interfaz Multilingüe",
-              us: true,
-              others: false,
-            },
-            {
-              feature: "Plantillas para Negocios",
-              us: true,
-              others: "Básico",
-            },
-          ],
+          headers: ["Características", "Nuestra Solución", "Otras"],
         },
+        items: [
+          {
+            feature: "Estilos de Fotografía Profesional",
+            us: true,
+            others: "Básico",
+          },
+          {
+            feature: "Integración con Modelos Lifestyle",
+            us: true,
+            others: false,
+          },
+          {
+            feature: "Calidad Comercial Real",
+            us: true,
+            others: "Limitada",
+          },
+          {
+            feature: "Procesamiento Ultra-Rápido (8s)",
+            us: true,
+            others: "5-10 min",
+          },
+          {
+            feature: "Interfaz Multilingüe",
+            us: true,
+            others: false,
+          },
+          {
+            feature: "Plantillas para Negocios",
+            us: true,
+            others: "Básico",
+          },
+        ],
       },
       social_proof: {
         title: "Lo que Dicen los Negocios",
@@ -457,7 +469,7 @@ export default function AIPhotoEditorWaitlist() {
     },
   };
 
-  const t = translations[language];
+  const t = translations[language] || translations.en;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -480,6 +492,13 @@ export default function AIPhotoEditorWaitlist() {
     ));
   };
 
+  // Guardar idioma en localStorage cada vez que cambie
+  useEffect(() => {
+    localStorage.setItem("language", language);
+  }, [language]);
+ 
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
       {/* Selector de idioma */}
@@ -498,10 +517,10 @@ export default function AIPhotoEditorWaitlist() {
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-sm text-white backdrop-blur-sm hover:bg-white/20 transition-all hidden sm:block"
+          className="bg-white/50 border-2 border-black/80 rounded-lg px-4 py-2 text-sm text-gray-900 text-shadow-2xs backdrop-blur-sm hover:bg-white/80 transition-all hidden sm:block"
         >
-          <option value="en">🇺🇸 Inglés</option>
-          <option value="es">🇪🇸 Español</option>
+          <option value="en">🇺🇸 {t.options.en}</option>
+          <option value="es">🇪🇸 {t.options.es}</option>
         </select>
       </div>
 
@@ -511,14 +530,14 @@ export default function AIPhotoEditorWaitlist() {
 
         <div className="container mx-auto px-4 pt-24 pb-40 relative z-10">
           <div className="text-center flex flex-col items-center max-w-5xl mx-auto">
-            <div className="fixed inline-flex items-center space-x-2 bg-gradient-to-r z-50 top-10 from-green-400/20 to-blue-400/20 border border-green-400/30 rounded-full px-6 py-3 backdrop-blur-sm">
+            <div className="fixed hidden md:inline-flex  items-center space-x-2 bg-gradient-to-r z-50 top-10 from-green-400/20 to-blue-400/20 border border-green-400/30 rounded-full px-6 py-3 backdrop-blur-sm">
               <Sparkles className="h-5 w-5 text-green-400 animate-pulse" />
               <span className="text-sm font-semibold text-green-400">
                 {t.hero.badge}
               </span>
             </div>
 
-            <h1 className="text-6xl md:text-8xl font-black mb-8 bg-gradient-to-r from-white via-purple-100 to-pink-100 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-4xl md:text-8xl font-black mb-8 bg-gradient-to-r  from-white via-purple-100 to-pink-100 bg-clip-text text-transparent leading-tight">
               {t.hero.title}
             </h1>
 
@@ -554,7 +573,7 @@ export default function AIPhotoEditorWaitlist() {
                     </button>
                   </div>
                   <p className="text-purple-200 text-sm mt-4 text-center">
-                    {waitlistCount.toLocaleString()} personas ya se han unido
+                    {waitlistCount.toLocaleString()} {t.hero.people}
                   </p>
                 </div>
               </div>
@@ -579,10 +598,10 @@ export default function AIPhotoEditorWaitlist() {
                 </p>
                 <div className="flex justify-center space-x-4 mt-4">
                   <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                    Compartir en Twitter
+                    Compartir en Reddit
                   </button>
                   <button className="bg-blue-800 hover:bg-blue-900 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                    Compartir en Facebook
+                    Compartir en X
                   </button>
                 </div>
               </div>
@@ -595,7 +614,7 @@ export default function AIPhotoEditorWaitlist() {
       <div className="py-24 bg-black/20 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6">
               {t.features.title}
             </h2>
             <p className="text-xl text-purple-200 max-w-3xl mx-auto">
@@ -678,35 +697,9 @@ export default function AIPhotoEditorWaitlist() {
         </div>
       </div>
 
-      {/* Prueba social */}
-      <div className="py-24 bg-black/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
-              {t.social_proof.title}
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {t.social_proof.testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-white/10 rounded-3xl p-8 backdrop-blur-sm border border-white/10"
-              >
-                <div className="flex items-center mb-4">
-                  {renderStars(testimonial.rating)}
-                </div>
-                <p className="text-purple-100 text-lg mb-6 italic">
-                  "{testimonial.content}"
-                </p>
-                <div>
-                  <p className="font-semibold text-white">{testimonial.name}</p>
-                  <p className="text-purple-300 text-sm">{testimonial.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* antes y despues */}
+      <div className="bg-black/20 backdrop-blur-sm">
+        <BeforeToAfter />
       </div>
 
       {/* Vista previa de precios */}
