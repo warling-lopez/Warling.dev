@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+// Asegúrate de tener lucide-react instalado: npm install lucide-react
 import { Crown, Users, Zap, Globe, ArrowRight } from "lucide-react";
 
-// --- Datos de Traducción ---
+
 const translations = {
   en: {
     hero: {
@@ -93,35 +94,26 @@ const Icon = ({ name, className }) => {
   return icons[name] || null;
 };
 
-const WaitlistBeforeAfter = () => {
-  // 1. Leer idioma desde localStorage (default "es")
-  const [language, setLanguage] = useState("en");
-
-  // 2. Escuchar cambios en localStorage (por si cambias idioma desde otro componente)
-  useEffect(() => {
-    const handleStorage = () => {
-      const storedLang = localStorage.getItem("language");
-      setLanguage(storedLang || "en");
-    };
-
-  }, [language]);
-
-  // 3. Usar traducciones según el idioma
-  const content = translations[language] || translations.es;
-  const titleParts = content.hero.title.split(content.hero.highlight);
-
+// --- Componente Principal Actualizado ---
+const WaitlistBeforeAfter = ({ lang }) => {
+  // --- 2. Añadir estado para controlar la visibilidad ---
   const [isAfterVisible, setIsAfterVisible] = useState(false);
 
-  const handleImageToggle = () => {
-    setIsAfterVisible((prev) => !prev);
-  };
+  const content = translations[lang] || translations.es;
+  const titleParts = content.hero.title.split(content.hero.highlight);
 
+  // Función para cambiar el estado al hacer clic
+  const handleImageToggle = () => {
+    setIsAfterVisible((prevState) => !prevState);
+  };
   return (
+    // CAMBIO: Fondo más oscuro y moderno para resaltar el efecto de vidrio
     <div className="bg-black/10 backdrop-blur-sm text-white py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-4">
             {titleParts[0]}
+            {/* CAMBIO: Color de realce actualizado a la nueva paleta */}
             <span className="text-pink-400">{content.hero.highlight}</span>
             {titleParts[1]}
           </h1>
@@ -131,11 +123,13 @@ const WaitlistBeforeAfter = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Imagen interactiva */}
+          {/* Columna de la imagen interactiva */}
+          {/* --- 3. Se quita 'group' y se añade onClick y cursor-pointer --- */}
           <div
             className="relative rounded-xl w-full h-full overflow-hidden shadow-2xl mx-auto border border-white/10 cursor-pointer"
             onClick={handleImageToggle}
           >
+            {/* --- 4. Las clases de opacidad ahora dependen del estado 'isAfterVisible' --- */}
             <img
               src="/Gemini_Generated_Image_6frmf46frmf46frm.png"
               alt="Professional Product"
@@ -164,6 +158,8 @@ const WaitlistBeforeAfter = () => {
             >
               <span>Después</span>
             </div>
+
+            {/* El texto de interacción ahora es un indicador de que se puede tocar */}
             <div
               className={`absolute bottom-4 left-1/2 -translate-x-1/2 bg-gray-900 bg-opacity-70 px-4 py-2 rounded-full text-center pointer-events-none transition-opacity duration-500 animate-pulse ${
                 isAfterVisible ? "opacity-0" : "opacity-100"
@@ -175,14 +171,17 @@ const WaitlistBeforeAfter = () => {
             </div>
           </div>
 
-          {/* Texto y CTA */}
+          {/* Columna de texto y CTA */}
           <div className="flex flex-col justify-center">
+            {/* CAMBIO: Contenedor con estilo "glassmorphism" */}
             <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
+              {/* CAMBIO: Botón con degradado y nuevos estilos */}
               <button className="w-full px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl font-bold text-lg text-white hover:from-purple-600 hover:to-pink-600 transition-all duration-300 flex items-center justify-center space-x-3 shadow-2xl hover:shadow-purple-500/25 transform hover:scale-105">
                 <span>{content.hero.cta}</span>
                 <ArrowRight className="h-5 w-5" />
               </button>
 
+              {/* CAMBIO: Colores de texto actualizados */}
               <p className="text-purple-200 text-sm mt-4 text-center">
                 {content.hero.urgency}
               </p>
@@ -199,6 +198,7 @@ const WaitlistBeforeAfter = () => {
               <ul className="space-y-5">
                 {content.features.list.map((feature, index) => (
                   <li key={index} className="flex items-start">
+                    {/* CAMBIO: Color de ícono actualizado */}
                     <Icon
                       name={feature.icon}
                       className="w-6 h-6 text-pink-400 mr-4 flex-shrink-0 mt-1"

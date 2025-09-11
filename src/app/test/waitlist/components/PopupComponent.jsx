@@ -47,7 +47,7 @@ const PopupComponent = () => {
       <div className="flex items-center justify-center p-8">
         <button
           onClick={handleOpen}
-          className="px-6 py-3 font-bold text-white transition-transform transform bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700 active:scale-95"
+          className="px-6 py-3 font-bold text-white transition-transform transform bg-purple-600 rounded-lg shadow-lg hover:bg-purple-700 backdrop-blur-xl active:scale-95"
         >
           Ver ejemplo
         </button>

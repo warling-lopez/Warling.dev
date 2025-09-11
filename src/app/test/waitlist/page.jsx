@@ -19,11 +19,12 @@ import {
 import PopupComponent from "./components/PopupComponent";
 import BeforeToAfter from "./components/BeforeToAfter";
 
+
 export default function AIPhotoEditorWaitlist() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
- const [language, setLanguage] = useState("en");
+  const [language, setLanguage] = useState("en");
   const [waitlistCount, setWaitlistCount] = useState(24);
 
   const translations = {
@@ -254,6 +255,7 @@ export default function AIPhotoEditorWaitlist() {
           message:
             "Your spot is secured. We’ll notify you as soon as we launch with your 50% discount code.",
           social: "Share with friends and help us grow:",
+          shared: ["Share in Reddit", "Share in X"],
         },
       },
       footer: {
@@ -458,6 +460,7 @@ export default function AIPhotoEditorWaitlist() {
           message:
             "Tu plaza está asegurada. Te avisaremos en el lanzamiento junto con tu descuento exclusivo del 50%.",
           social: "Compártelo con tus amigos y ayúdanos a crecer:",
+          shared: ["Compartir en Reddit", "Compartir en X"],
         },
       },
       footer: {
@@ -471,15 +474,17 @@ export default function AIPhotoEditorWaitlist() {
 
   const t = translations[language] || translations.en;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubmitted(true);
-      setWaitlistCount((prev) => prev + 1);
-      // Here you would typically send the email to your backend
-      console.log("Email submitted:", email);
-    }
-  };
+  const handleSubmit = async () => {
+  await fetch("/api/sendEmail", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+    setIsSubmitted(true);
+    setWaitlistCount(waitlistCount + 1);
+    console.log("Email submitted:", email);
+};
+
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -496,8 +501,6 @@ export default function AIPhotoEditorWaitlist() {
   useEffect(() => {
     localStorage.setItem("language", language);
   }, [language]);
- 
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
@@ -597,15 +600,67 @@ export default function AIPhotoEditorWaitlist() {
                   {t.waitlist.success.social}
                 </p>
                 <div className="flex justify-center space-x-4 mt-4">
-                  <button className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                    Compartir en Reddit
+                  {/* Botón Reddit */}
+                  <button
+                    onClick={() => {
+                      const url = encodeURIComponent(window.location.href);
+                      const title = encodeURIComponent(
+                        "Join my AI Product Photo Waitlist!"
+                      );
+                      window.open(
+                        `https://www.reddit.com/submit?url=${url}&title=${title}`,
+                        "_blank"
+                      );
+                    }}
+                    className="bg-amber-700 hover:bg-amber-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    {t.waitlist.success.shared[0]}
                   </button>
-                  <button className="bg-blue-800 hover:bg-blue-900 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                    Compartir en X
+
+                  {/* Botón X */}
+                  <button
+                    onClick={() => {
+                      const url = encodeURIComponent(window.location.href);
+                      const text = encodeURIComponent(
+                        "Check out this amazing AI Product Photo Waitlist!"
+                      );
+                      window.open(
+                        `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+                        "_blank"
+                      );
+                    }}
+                    className="bg-slate-800 hover:bg-slate-950 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    {t.waitlist.success.shared[1]}
                   </button>
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Sección de beneficios */}
+      <div className="py-24 bg-gradient-to-r from-purple-900/50 to-pink-900/50 backdrop-blur-sm">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              {t.benefits.title}
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {t.benefits.list.map((benefit, index) => (
+              <div key={index} className="text-center">
+                <div className="bg-gradient-to-r from-purple-500 to-pink-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <benefit.icon className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">{benefit.title}</h3>
+                <p className="text-purple-100 leading-relaxed">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -699,7 +754,7 @@ export default function AIPhotoEditorWaitlist() {
 
       {/* antes y despues */}
       <div className="bg-black/20 backdrop-blur-sm">
-        <BeforeToAfter />
+        <BeforeToAfter lang={language} />
       </div>
 
       {/* Vista previa de precios */}
@@ -757,31 +812,6 @@ export default function AIPhotoEditorWaitlist() {
                     ))}
                   </ul>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Sección de beneficios */}
-      <div className="py-24 bg-gradient-to-r from-purple-900/50 to-pink-900/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
-              {t.benefits.title}
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {t.benefits.list.map((benefit, index) => (
-              <div key={index} className="text-center">
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <benefit.icon className="h-10 w-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">{benefit.title}</h3>
-                <p className="text-purple-100 leading-relaxed">
-                  {benefit.description}
-                </p>
               </div>
             ))}
           </div>
