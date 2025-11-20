@@ -1,17 +1,26 @@
 "use client";
+import { useState } from "react";
+
 export default function ProjectCard({ project }) {
   const stack = project.stack ?? [];
   const roles = project.myRole ?? [];
+  const deliverables = project.deliverables ?? []; // <-- Asumiendo que aquí vienen tus entregables
   const codeSnippet = project.codeSnippet ?? { title: '', code: '' };
+
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleDeliverables = showAll
+    ? deliverables
+    : deliverables.slice(0, 4);
 
   return (
     <article className="mb-24 border-b border-neutral-800 pb-12 last:border-0">
       <div className="grid lg:grid-cols-2 gap-10">
-        
+
         {/* Info del Proyecto */}
         <div>
           <h4 className="text-2xl font-bold text-white mb-4">{project.title}</h4>
-          
+
           <div className="flex flex-wrap gap-2 mb-6">
             {stack.map((tech) => (
               <span key={tech} className="text-xs font-mono text-emerald-400 bg-emerald-900/10 border border-emerald-900/30 px-2 py-1">
@@ -25,10 +34,37 @@ export default function ProjectCard({ project }) {
               <strong className="text-white block font-mono uppercase text-xs mb-1 tracking-wider">Problema Real</strong>
               <p>{project.problem}</p>
             </div>
+
             <div>
               <strong className="text-white block font-mono uppercase text-xs mb-1 tracking-wider">Solución Técnica</strong>
               <p>{project.solution}</p>
             </div>
+
+            {/* LISTA DE ENTREGABLES CON VER MÁS / VER MENOS */}
+            {deliverables.length > 0 && (
+              <div>
+                <strong className="text-white block font-mono uppercase text-xs mb-1 tracking-wider">
+                  Entregables
+                </strong>
+
+                <ul className="list-disc list-inside text-neutral-400 marker:text-emerald-500">
+                  {visibleDeliverables.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+
+                {deliverables.length > 4 && (
+                  <button
+                    onClick={() => setShowAll(!showAll)}
+                    className="mt-2 text-emerald-400 text-xs underline underline-offset-4"
+                  >
+                    {showAll ? "Ver menos" : "Ver más"}
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* MI ROL */}
             {roles.length > 0 && (
               <div>
                 <strong className="text-white block font-mono uppercase text-xs mb-1 tracking-wider">Mi Rol</strong>
@@ -40,11 +76,18 @@ export default function ProjectCard({ project }) {
           </div>
 
           <div className="mt-8 flex gap-6 font-mono text-sm">
-            <a href={project.repoLink} className="text-white hover:text-emerald-400 underline decoration-neutral-700 underline-offset-4">
+            <a
+              href={project.repoLink}
+              className="text-white hover:text-emerald-400 underline decoration-neutral-700 underline-offset-4"
+            >
               git log --repo
             </a>
+
             {project.demoLink && (
-              <a href={project.demoLink} className="text-white hover:text-emerald-400 underline decoration-neutral-700 underline-offset-4">
+              <a
+                href={project.demoLink}
+                className="text-white hover:text-emerald-400 underline decoration-neutral-700 underline-offset-4"
+              >
                 curl --head demo
               </a>
             )}

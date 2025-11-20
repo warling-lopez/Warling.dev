@@ -3,43 +3,47 @@
 export const portfolioData = {
   personal: {
     name: "Warling Dev",
-    role: "Desarrollador Web Independiente (JS)",
+    role: "Desarrollador Web Independiente",
     tagline:
       "Creo páginas web rápidas, limpias y a código. Nada de CMS. Soluciones simples y estables para negocios reales.",
     availability: "🟢 Disponible para proyectos pequeños y medianos",
     email: "contacto@warlingdev.com",
     calendly: "https://calendly.com/warling", 
     social: {
-      github: "https://github.com/warling",
+      github: "https://github.com/warling-lopez",
       linkedin: "https://linkedin.com/in/warling"
     }
   },
 
   services: [
     {
-      title: "Páginas Web a Código (HTML/CSS/JS)",
+      title: "Páginas Webs Simples",
       description:
-        "Sitios rápidos, ligeros y hechos desde cero. Pensados para negocios locales que quieren algo simple y profesional.",
+        "Sitios rápidos y ligeros. Pensados para negocios locales que quieren algo simple y profesional.",
       deliverables: [
         "Código fuente completo",
-        "Optimización de carga",
-        "Diseño adaptable (responsive)"
+        "Buenas prácticas SEO básicas",
+        "Diseño responsive (móvil)",
+        "Deploy en hosting (opcional)"
       ],
-      tech: "HTML, CSS, JavaScript, Vite"
+      tech: "Vite, Nextjs, Remix o Astro todo con SSR (si se requiere)"
     },
     {
-      title: "Webs con Funcionalidades Personalizadas",
+      title: "Webs Personalizadas",
       description:
         "Formularios, filtros, catálogos, dashboards simples y funciones hechas a la medida.",
       deliverables: [
-        "Frontend funcional",
+        "Código fuente completo",
         "Integraciones con APIs",
-        "Módulos JS reutilizables"
+        "Buenas prácticas SEO ",
+        "mejoras de rendimiento",
+        "Diseño responsive (móvil)",
+        "Deploy en hosting (opcional)"
       ],
-      tech: "JavaScript, Node.js (si se requiere), SQLite"
+      tech: "Nextjs, SQLite, tailwindcss, APIs REST (según necesidad)"
     },
     {
-      title: "Mantenimiento y Cambios",
+      title: "Mantenimiento Web",
       description:
         "Actualización de contenido, correcciones, limpieza del código y mejoras visuales.",
       deliverables: [
@@ -47,7 +51,7 @@ export const portfolioData = {
         "Soporte mensual básico",
         "Mejoras de rendimiento"
       ],
-      tech: "Cualquier stack JS"
+      tech: "Nextjs, Vite, JavaScript, Php (según proyecto existente)"
     }
   ],
 
