@@ -9,3 +9,30 @@
 body{
   background-color: black;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar estilo terminal para bloques de código */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #171717;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #525252;
+}
+
+/* Tipografía base */
+h1, h2, h3, p, a {
+  @apply font-sans;
+}
+/* Elementos técnicos en monoespaciado */
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
