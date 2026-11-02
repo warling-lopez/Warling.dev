@@ -1,38 +1,399 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ink: #070707;
+  --color-coal: #0f0f10;
+  --color-ash: #1a1a1c;
+  --color-line: #262629;
+  --color-mute: #8a8a90;
+  --color-accent: #0fb3dc;
+  --color-accent-deep: #0a5f99;
+
+  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Caveat", "Brush Script MT", cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ink);
+}
+
+body {
+  background: var(--color-ink);
+  color: #e9e9ea;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #021014;
+}
+
+/* Titulares gigantes estilo póster */
+.display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: 0.005em;
+}
+
+.script {
+  font-family: var(--font-script);
+}
+
+/* Texto con contorno (para el "PORTAFOLIO" de fondo) */
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-accent);
+}
+
+/* Etiqueta pequeña de sección: "/ 01 — TRABAJOS" */
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+/* Grano sutil sobre todo el sitio */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* =====================================================================
+   BUILD FX — la página se construye sola al hacer scroll
+   ===================================================================== */
 :root {
-  --fondoLight: #eeeeee;
-  --fondoDark: #00033a;
-  --specialColor: #deb71a;
-  --specialColorLogo: #4c5100;
-}
-body{
-  background-color: black;
-}
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Scrollbar estilo terminal para bloques de código */
-.custom-scrollbar::-webkit-scrollbar {
-  height: 8px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: #171717;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #404040;
-  border-radius: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #525252;
+  --fx-blue: #4d7dff;
+  --fx-blue-soft: rgba(77, 125, 255, 0.38);
 }
 
-/* Tipografía base */
-h1, h2, h3, p, a {
-  @apply font-sans;
+/* Estado inicial: todo lo marcado con data-build espera a ser "construido" */
+.fx-on [data-build]:not(.b-done):not(.b-typing) {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(10px);
 }
-/* Elementos técnicos en monoespaciado */
-code, pre, .font-mono {
-  font-family: var(--font-mono);
+.fx-on [data-build="media"]:not(.b-done) {
+  filter: blur(22px) saturate(0.2);
+  transform: scale(1.03);
+}
+.fx-on [data-build].b-done:not(.b-settled) {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  transition: opacity 0.55s ease, filter 0.75s ease, transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+/* Texto: se "escribe" de izquierda a derecha */
+.fx-on [data-build].b-typing {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  clip-path: inset(-30% 100% -30% -4%);
+}
+.fx-on [data-build].b-typing.b-typed {
+  clip-path: inset(-30% -4% -30% -4%);
+  transition: clip-path var(--fx-dur, 600ms) linear;
+}
+
+.fx-layer,
+.fx-cursors {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.fx-layer { z-index: 70; }
+.fx-cursors { z-index: 72; transition: opacity 0.8s ease; }
+.fx-cursors.fx-out { opacity: 0; }
+
+.fx-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: -2px 0 0 -3px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.6));
+  will-change: transform;
+}
+
+/* Marco azul alrededor del elemento */
+.fx-box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid var(--fx-blue);
+  box-shadow: 0 0 0 1px rgba(56, 168, 255, 0.12), 0 0 28px rgba(56, 168, 255, 0.14);
+  animation: fx-draw 0.38s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  will-change: transform;
+}
+.fx-box.fx-text { background: rgba(56, 168, 255, 0.05); }
+.fx-box.fx-block { background: rgba(56, 168, 255, 0.07); }
+.fx-box.fx-media {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(160deg, rgba(128, 156, 196, 0.72), rgba(84, 108, 146, 0.72));
+}
+@keyframes fx-draw {
+  from { opacity: 0; clip-path: inset(0 100% 100% 0); }
+  to { opacity: 1; clip-path: inset(-40px -40px -40px -40px); }
+}
+
+.fx-tag,
+.fx-size {
+  position: absolute;
+  font: 600 9.5px/1 var(--font-sans);
+  letter-spacing: 0.02em;
+  padding: 3px 5px;
+  border-radius: 2px;
+  white-space: nowrap;
+  text-transform: none;
+}
+.fx-tag { left: -1px; top: -17px; background: var(--fx-blue); color: #00142a; }
+.fx-size { right: -1px; bottom: -17px; background: #0d2a44; color: #9fd4ff; border: 1px solid var(--fx-blue-soft); }
+
+.fx-h {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border: 1px solid var(--fx-blue);
+}
+.fx-tl { left: -4px; top: -4px; }
+.fx-tr { right: -4px; top: -4px; }
+.fx-bl { left: -4px; bottom: -4px; }
+.fx-br { right: -4px; bottom: -4px; }
+
+/* Cruces "+" de medición */
+.fx-plus {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+}
+.fx-plus::before,
+.fx-plus::after {
+  content: "";
+  position: absolute;
+  background: #fff;
+  opacity: 0.85;
+}
+.fx-plus::before { left: 5px; top: 0; width: 1px; height: 11px; }
+.fx-plus::after { top: 5px; left: 0; height: 1px; width: 11px; }
+.fx-p1 { left: 22%; top: 30%; animation: fx-blink 0.9s steps(2) infinite; }
+.fx-p2 { right: 18%; bottom: 26%; animation: fx-blink 0.9s 0.3s steps(2) infinite; }
+
+/* Cursor de texto (I-beam) que avanza mientras se escribe */
+.fx-caret {
+  position: absolute;
+  top: 6%;
+  bottom: 6%;
+  left: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+}
+.fx-caret::before,
+.fx-caret::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  width: 8px;
+  height: 2px;
+  background: #fff;
+}
+.fx-caret::before { top: 0; }
+.fx-caret::after { bottom: 0; }
+
+/* Guías que cruzan toda la pantalla */
+.fx-guide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--fx-blue-soft);
+  animation: fx-fade 0.4s ease both;
+  will-change: transform;
+}
+.fx-guide-h { width: 100vw; height: 1px; }
+.fx-guide-v { height: 100vh; width: 1px; }
+
+.fx-out {
+  opacity: 0 !important;
+  transition: opacity 0.45s ease !important;
+}
+
+@keyframes fx-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fx-blink { 50% { opacity: 0.2; } }
+
+/* Reglas superior e izquierda */
+.fx-ruler {
+  position: fixed;
+  z-index: 71;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  background: linear-gradient(#1b6fd8, #0f4fa8);
+  color: rgba(255, 255, 255, 0.75);
+  font: 500 8px/1 var(--font-sans);
+}
+.fx-ruler.fx-show { opacity: 0.92; }
+.fx-ruler-top {
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 14px;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.45) 0 1px, transparent 1px 10px),
+    linear-gradient(#1b6fd8, #0f4fa8);
+  background-size: 100% 4px, 100% 100%;
+  background-position: bottom, 0 0;
+  background-repeat: no-repeat;
+}
+.fx-ruler-left {
+  left: 0;
+  top: 14px;
+  bottom: 0;
+  width: 14px;
+  background-image:
+    repeating-linear-gradient(rgba(255, 255, 255, 0.45) 0 1px, transparent 1px 10px),
+    linear-gradient(90deg, #1b6fd8, #0f4fa8);
+  background-size: 4px 100%, 100% 100%;
+  background-position: right, 0 0;
+  background-repeat: no-repeat;
+}
+.fx-ruler span { position: absolute; }
+.fx-ruler-top span { top: 2px; margin-left: 3px; }
+.fx-ruler-left span { left: 1px; margin-top: 3px; writing-mode: vertical-rl; transform: rotate(180deg); }
+
+/* Intro: pantalla negra escaneando */
+.fx-intro {
+  position: absolute;
+  inset: 0;
+  background: #050505;
+  display: grid;
+  place-items: center;
+}
+.fx-intro-logo {
+  font-family: var(--font-display);
+  font-size: 46px;
+  color: #2a2a2e;
+  animation: fx-blink 1.2s ease-in-out infinite;
+}
+
+/* Barra inferior: agentes · capas · estado */
+.fx-hud {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 73;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: calc(100vw - 24px);
+  padding: 7px 8px 7px 10px;
+  border-radius: 12px;
+  background: rgba(20, 22, 27, 0.92);
+  border: 1px solid #2b2e36;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  color: #c9ccd3;
+  font: 500 12px/1 var(--font-sans);
+  white-space: nowrap;
+  animation: fx-hud-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.fx-hud b { color: #fff; font-weight: 700; }
+@keyframes fx-hud-in { from { opacity: 0; transform: translate(-50%, 16px); } }
+.fx-avatar {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 2px solid #14161b;
+  font: 700 9px/1 var(--font-sans);
+  font-style: normal;
+  color: #fff;
+}
+.fx-sep { width: 1px; height: 14px; background: #3a3d46; }
+.fx-bar {
+  position: relative;
+  width: 84px;
+  height: 3px;
+  border-radius: 9px;
+  background: #2e3240;
+  overflow: hidden;
+}
+.fx-bar i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--fx-blue);
+  transition: width 0.4s ease;
+}
+.fx-status {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #13406f;
+  color: #8fd0ff;
+  font-weight: 600;
+}
+.fx-status-done { background: #0f4d36; color: #7ff0b8; }
+.fx-btn {
+  display: grid;
+  place-items: center;
+  min-width: 28px;
+  height: 26px;
+  padding: 0 6px;
+  border-radius: 7px;
+  background: #23262e;
+  color: #c9ccd3;
+  font: 600 11px/1 var(--font-sans);
+  cursor: pointer;
+}
+.fx-btn:hover { background: #30343e; color: #fff; }
+
+@media (max-width: 640px) {
+  .fx-hud { gap: 7px; font-size: 11px; bottom: 10px; }
+  .fx-bar, .fx-sep { display: none; }
+  .fx-ruler { display: none; }
+}
+
+/* Cinta de texto en movimiento */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+/* Foto del hero que se funde con el fondo */
+.hero-photo {
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 62%, transparent 98%),
+    linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 62%, transparent 98%),
+    linear-gradient(to right, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-composite: intersect;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track { animation: none; }
+}
+
+/* Que el menú fijo no tape el título al saltar a una sección */
+section[id] {
+  scroll-margin-top: 72px;
 }
