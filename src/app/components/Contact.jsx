@@ -76,7 +76,17 @@ export default function Contact() {
             {personal.name}
             <span className="text-accent">.</span>
           </a>
-          <p>© {new Date().getFullYear()} {personal.fullName}. Hecho a código con Next.js.</p>
+          <p>© {new Date().getFullYear()} {personal.fullName}. Hecho a código con Next.js. Creado por{" "}
+            <a
+              href="https://grolow.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white transition-colors hover:text-accent"
+            >
+              Grolow
+            </a>
+            .
+          </p>
           <a href="#inicio" className="uppercase tracking-[0.16em] hover:text-white">Volver arriba ↑</a>
         </div>
       </footer>
